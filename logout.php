@@ -1,8 +1,9 @@
-<?php 
+<?php
 session_start();
-session_unset();
-    $_SESSION['FBID'] = NULL;
-    $_SESSION['FULLNAME'] = NULL;
-    $_SESSION['EMAIL'] =  NULL;
-header("Location: index.php");        // you can enter home page here ( Eg : header("Location: " ."http://www.krizna.com"); 
+// although 2nd and 3rd line is not needed session_destroy() is needed,
+// but just to be extra sure that no session remains in the cache.
+$_SESSION = array();
+unset($_SESSION);
+session_destroy();
+header("location:index.php");
 ?>

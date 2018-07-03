@@ -1,40 +1,35 @@
 <?php
-session_start(); 
+/*
+ * @author Shahrukh Khan
+ * @website http://www.thesoftwareguy.in
+ * @facebbok https://www.facebook.com/Thesoftwareguy7
+ * @twitter https://twitter.com/thesoftwareguy7
+ * @googleplus https://plus.google.com/+thesoftwareguyIn
+ */
+require_once './config.php';
+if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != "") {
+  // user already logged in the site
+  header("location:".SITE_URL . "home.php");
+}
+include './header.php';
 ?>
-<!doctype html>
-<html xmlns:fb="http://www.facebook.com/2008/fbml">
-  <head>
-    <title>Login with Facebook</title>
-<link href="http://www.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet"> 
- </head>
-  <body>
-  <?php if ($_SESSION['FBID']): ?>      <!--  After user login  -->
 <div class="container">
-<div class="hero-unit">
-  <h1>Hello <?php echo $_SESSION['USERNAME']; ?></h1>
-  <p>Welcome to "facebook login" tutorial</p>
+  <div class="margin10"></div>
+  
+  <?php if ($_SESSION["e_msg"] <> "") { ?>
+    <div class="alert alert-dismissable alert-danger">
+      <button data-dismiss="alert" class="close" type="button">x</button>
+      <p><?php echo $_SESSION["e_msg"]; ?></p>
+    </div>
+  <?php } ?>
+  <div class="col-sm-3 col-sm-offset-4 padding20">
+    <a class="btn btn-block btn-social btn-linkedin" href="linkedin_login.php">
+            <i class="fa fa-linkedin"></i> Login with LinkedIn
+          </a>
   </div>
-<div class="span4">
- <ul class="nav nav-list">
-<li class="nav-header">Image</li>
-	<li><img src="https://graph.facebook.com/<?php echo $_SESSION['FBID']; ?>/picture"></li>
-<li class="nav-header">Facebook ID</li>
-<li><?php echo  $_SESSION['FBID']; ?></li>
-<li class="nav-header">Facebook fullname</li>
-<li><?php echo $_SESSION['FULLNAME']; ?></li>
-<li class="nav-header">Facebook Email</li>
-<li><?php echo $_SESSION['EMAIL']; ?></li>
-<div><a href="logout.php">Logout</a></div>
-</ul></div></div>
-    <?php else: ?>     <!-- Before login --> 
-<div class="container">
-<h1>Login with Facebook</h1>
-           Not Connected
-<div>
-      <a href="fbconfig.php">Login with Facebook</a></div>
-	 <div> <a href="http://www.krizna.com/general/login-with-facebook-using-php/"  title="Login with facebook">View Post</a>
-	  </div>
-      </div>
-    <?php endif ?>
-  </body>
-</html>
+</div>
+<?php
+include './footer.php';
+// unset if after it display the error.
+$_SESSION["e_msg"] = "";
+?>
